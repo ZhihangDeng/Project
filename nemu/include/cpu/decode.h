@@ -16,6 +16,7 @@ typedef struct {
   IFDEF(CONFIG_ISA_x86, uint8_t reg);
 } Operand;
 
+//用于存放执行一条指令过程中的译码和执行信息，包括指令的PC, 执行方式, 以及操作数的信息。
 typedef struct Decode {
   vaddr_t pc;
   vaddr_t snpc; // static next pc
