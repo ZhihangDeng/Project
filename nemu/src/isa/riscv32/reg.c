@@ -10,7 +10,7 @@ const char *regs[] = {
 
 void isa_reg_display() {
   for(size_t i = 0; i < 32; i++){
-    printf("%s\t\t0x%x",regs[i],gpr(i));
+    printf("%s\t\t0x%x\n",regs[i],gpr(i));
   }
 }
 
