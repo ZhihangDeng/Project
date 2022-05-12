@@ -3,12 +3,45 @@
 #include <readline/readline.h>
 #include <readline/history.h>
 #include "sdb.h"
+#include<memory/paddr.h>
 
 static int is_batch_mode = false;
 
 void init_regex();
 void init_wp_pool();
+int htoi(char s[])
+{
+    int i = 0;
 
+    if (s[i] == '0')
+    {
+        ++i;
+    }
+
+    if (s[i] == 'x' || s[i] == 'X')
+    {
+        ++i;    
+    }
+
+    int n = 0; 
+    int hexdigit; 
+
+    for(; i < strlen(s); ++i ){
+        if (s[i] >= '0' && s[i] <= '9'){
+            hexdigit = s[i] - '0';
+            n = 16 * n + hexdigit;
+        }
+        if (s[i] >= 'A' && s[i] <= 'F'){
+            hexdigit = s[i] - 'A' + 10;
+            n = 16 * n + hexdigit;
+        }
+        if (s[i] >= 'a' && s[i] <= 'f'){
+            hexdigit = s[i] - 'a' + 10;
+            n = 16 * n + hexdigit;
+        }
+    }
+    return n;
+}
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 static char* rl_gets() {
   static char *line_read = NULL;
@@ -45,11 +78,15 @@ static int cmd_si(char *args){
 
 static int cmd_x(char *args){
   char *n_str, *base_str;
+  paddr_t base;
+  word_t word_read;
+
   if((n_str = strtok(NULL," ")) && (base_str = strtok(NULL," "))){
     int n = atoi(n_str);
-    vaddr_t base = atoi(base_str+2);
+    base = htoi(base_str);
     for(int i = 0;i < n; i++){
-      printf("0x%x\n", base+4*i);
+      word_read = paddr_read(base+4*i, 4);
+      printf("0x%x\n", word_read);
     }
   }
   return 0;
@@ -79,8 +116,6 @@ static struct {
   { "si", "",cmd_si},
   { "x", "",cmd_x},
   { "info", "",cmd_info}
-  /* TODO: Add more commands */
-
 };
 
 #define NR_CMD ARRLEN(cmd_table)
