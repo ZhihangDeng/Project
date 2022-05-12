@@ -47,7 +47,7 @@ static int cmd_x(char *args){
   char *n_str, *base_str;
   if((n_str = strtok(NULL," ")) && (base_str = strtok(NULL," "))){
     int n = atoi(n_str);
-    uint32_t base = atoi(base_str);
+    uint32_t base = atoi(base_str+2);
     for(int i = 0;i < n; i++){
       printf("0x%x\n", base+4*i);
     }
