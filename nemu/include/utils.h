@@ -41,9 +41,7 @@ uint64_t get_time();
 
 #define ASNI_FMT(str, fmt) fmt str ASNI_NONE
 
-#define log_write(...) IFDEF(CONFIG_TARGET_NATIVE_ELF, \
-  do { } while (0) \
-)
+#define log_write(...) IFDEF(CONFIG_TARGET_NATIVE_ELF, do {} while (0))
 
 /*#define log_write(...) IFDEF(CONFIG_TARGET_NATIVE_ELF, \
   do { \
