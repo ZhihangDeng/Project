@@ -30,7 +30,15 @@ static void trace_and_difftest(Decode *_this, vaddr_t dnpc) {
 }
 
 #include <isa-exec.h>
-
+/*
+static const void* g_exec_table[TOTAL_INSTR] = {
+  [EXEC_ID_lui] = exec_lui, 
+  [EXEC_ID_lw] = exec_lw, 
+  [EXEC_ID_sw] = exec_sw, 
+  [EXEC_ID_inv] = exec_inv, 
+  [EXEC_ID_nemu_trap] = exec_nemu_trap,
+};
+*/
 #define FILL_EXEC_TABLE(name) [concat(EXEC_ID_, name)] = concat(exec_, name),
 static const void* g_exec_table[TOTAL_INSTR] = {
   MAP(INSTR_LIST, FILL_EXEC_TABLE)

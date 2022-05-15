@@ -21,12 +21,13 @@ typedef struct Decode {
   vaddr_t pc;
   vaddr_t snpc; // static next pc
   vaddr_t dnpc; // dynamic next pc
-  void (*EHelper)(struct Decode *);
-  Operand dest, src1, src2;
-  ISADecodeInfo isa;
+  void (*EHelper)(struct Decode *); //执行辅助函数
+  Operand dest, src1, src2; //操作数
+  ISADecodeInfo isa;  //isa相关信息
   IFDEF(CONFIG_ITRACE, char logbuf[128]);
 } Decode;
 
+//取得操作数
 #define id_src1 (&s->src1)
 #define id_src2 (&s->src2)
 #define id_dest (&s->dest)
@@ -35,11 +36,16 @@ typedef struct Decode {
 // `INSTR_LIST` is defined at src/isa/$ISA/include/isa-all-instr.h
 #define def_EXEC_ID(name) concat(EXEC_ID_, name),
 #define def_all_EXEC_ID() enum { MAP(INSTR_LIST, def_EXEC_ID) TOTAL_INSTR }
-
+//enum { EXEC_ID_lui EXEC_ID_lw EXEC_ID_sw EXEC_ID_inv TOTAL_INSTR }
 
 // --- prototype of table helpers ---
 #define def_THelper(name) static inline int concat(table_, name) (Decode *s)
 #define def_THelper_body(name) def_THelper(name) { return concat(EXEC_ID_, name); }
+/*
+#define MAP(c, f) c(f)
+#define INSTR_LIST(f) f(lui) f(lw) f(sw) f(inv) f(nemu_trap)
+MAP(INSTR_LIST, f) = INSTR_LIST(f) = f(lui) f(lw) f(sw) f(inv) f(nemu_trap)
+*/
 #define def_all_THelper() MAP(INSTR_LIST, def_THelper_body)
 
 
@@ -119,8 +125,38 @@ finish:
 #define def_INSTR_IDTABW(pattern, id, tab, width) \
   def_INSTR_raw(pattern_decode, pattern, \
       { concat(decode_, id)(s, width); return concat(table_, tab)(s); })
+
+/*  do { 
+  uint32_t key, mask, shift; 
+  pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); 
+  if (((s->isa.instr.val >> shift) & mask) == key) 
+  { 
+    decode_id(s, 0); 
+    return table_tab(s); 
+  } 
+} while (0);*/
 #define def_INSTR_IDTAB(pattern, id, tab)   def_INSTR_IDTABW(pattern, id, tab, 0)
+
+/*  do { 
+  uint32_t key, mask, shift; 
+  pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); 
+  if (((get_instr(s) >> shift) & mask) == key) 
+  { 
+    decode_empty(s, width); 不做任何事
+    return table_tab(s); 
+  } 
+} while (0);*/
 #define def_INSTR_TABW(pattern, tab, width) def_INSTR_IDTABW(pattern, empty, tab, width)
+
+/*  do { 
+  uint32_t key, mask, shift; 
+  pattern_decode(pattern, STRLEN(pattern), &key, &mask, &shift); 
+  if (((get_instr(s) >> shift) & mask) == key) 
+  { 
+    decode_empty(s, 0); 不做任何事
+    return table_tab(s); 
+  } 
+} while (0);*/
 #define def_INSTR_TAB(pattern, tab)         def_INSTR_IDTABW(pattern, empty, tab, 0)
 
 #define def_hex_INSTR_IDTABW(pattern, id, tab, width) \
