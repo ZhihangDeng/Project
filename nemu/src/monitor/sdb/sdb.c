@@ -92,6 +92,19 @@ static int cmd_x(char *args){
   return 0;
 }
 
+static int cmd_p(char *args){
+	bool valid = NULL;
+	uint32_t res=expr(args,&valid);
+	if(valid==true){
+		printf("%u\n",res);
+	}
+	else{
+		printf("Invalid expression\n");
+	}
+	return 0;
+
+}
+
 static int cmd_info(char *args){
   if(!args){
     printf("Input args!");
@@ -115,7 +128,8 @@ static struct {
   { "q", "Exit NEMU", cmd_q },
   { "si", "",cmd_si},
   { "x", "",cmd_x},
-  { "info", "",cmd_info}
+  { "info", "",cmd_info},
+	{"p", "p EXPR: evaluate the expression", cmd_p }
 };
 
 #define NR_CMD ARRLEN(cmd_table)
