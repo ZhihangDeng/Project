@@ -5,7 +5,9 @@
 #include <memory/vaddr.h>
 
 /* RTL basic instructions */
+//#define def_rtl(name, ...) void concat(rtl_, name)(Decode *s, __VA_ARGS__)
 
+//static inline void rtl_name(Decode *s, rtlreg_t* dest, const rtlreg_t* src1, const rtlreg_t* src2)
 #define def_rtl_compute_reg(name) \
   static inline def_rtl(name, rtlreg_t* dest, const rtlreg_t* src1, const rtlreg_t* src2) { \
     *dest = concat(c_, name) (*src1, *src2); \
@@ -22,6 +24,7 @@
 
 // compute
 
+//函数定义过程
 def_rtl_compute_reg_imm(add)
 def_rtl_compute_reg_imm(sub)
 def_rtl_compute_reg_imm(and)
@@ -46,6 +49,25 @@ def_rtl_compute_reg_imm(sraw)
 static inline def_rtl(setrelop, uint32_t relop, rtlreg_t *dest,
     const rtlreg_t *src1, const rtlreg_t *src2) {
   *dest = interpret_relop(relop, *src1, *src2);
+  /*
+  static inline bool interpret_relop(uint32_t relop, const rtlreg_t src1, const rtlreg_t src2) {
+    switch (relop) {
+      case RELOP_FALSE: return false;
+      case RELOP_TRUE: return true;
+      case RELOP_EQ: return src1 == src2;
+      case RELOP_NE: return src1 != src2;
+      case RELOP_LT: return (sword_t)src1 <  (sword_t)src2;
+      case RELOP_LE: return (sword_t)src1 <= (sword_t)src2;
+      case RELOP_GT: return (sword_t)src1 >  (sword_t)src2;
+      case RELOP_GE: return (sword_t)src1 >= (sword_t)src2;
+      case RELOP_LTU: return src1 < src2;
+      case RELOP_LEU: return src1 <= src2;
+      case RELOP_GTU: return src1 > src2;
+      case RELOP_GEU: return src1 >= src2;
+      default: panic("unsupport relop = %d", relop);
+    }
+  }
+  */
 }
 
 static inline def_rtl(setrelopi, uint32_t relop, rtlreg_t *dest,
