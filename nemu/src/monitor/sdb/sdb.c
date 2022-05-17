@@ -86,7 +86,7 @@ static int cmd_x(char *args){
     base = htoi(base_str);
     for(int i = 0;i < n; i++){
       word_read = paddr_read(base+4*i, 4);
-      printf("0x%08x\n", word_read);
+      printf("0x%8x:\t0x%08x\n", base+4*i, word_read);
     }
   }
   return 0;
