@@ -72,7 +72,7 @@ static def_DHelper(S) {
 //static void decode_J (Decode *s, int width)
 static def_DHelper(J) {
   decode_op_r(s, id_dest, s->isa.instr.j.rd, true);
-  sword_t simm = (s->isa.instr.j.imm20 << 19) | (s->isa.instr.j.imm10_1 << 9) | (s->isa.instr.j.imm11 << 8) | s->isa.instr.j.imm19_12;
+  sword_t simm = (s->isa.instr.j.imm20 << 20) | (s->isa.instr.j.imm10_1 << 10) | (s->isa.instr.j.imm11 << 9) | (s->isa.instr.j.imm19_12 << 1);
   simm = (simm << 12) >> 12;
   decode_op_i(s, id_src2, simm, false);
 }
