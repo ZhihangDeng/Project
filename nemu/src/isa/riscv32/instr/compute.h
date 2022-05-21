@@ -69,3 +69,7 @@ def_EHelper(sltu) {
 def_EHelper(xor) {
   rtl_xor(s, ddest, dsrc1, dsrc2);
 }
+
+def_EHelper(srai) {
+  rtl_srai(s, ddest, dsrc1, id_src2->imm);
+}
