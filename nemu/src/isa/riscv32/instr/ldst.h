@@ -21,3 +21,7 @@ def_EHelper(lbu) {
 def_EHelper(sh) {
   rtl_sm(s, ddest, dsrc1, id_src2->simm, 2);
 }
+
+def_EHelper(sb) {
+  rtl_sm(s, ddest, dsrc1, id_src2->simm, 1);
+}
