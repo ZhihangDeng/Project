@@ -57,3 +57,7 @@ def_EHelper(xori) {
 def_EHelper(srli) {
   rtl_srli(s, ddest, dsrc1, id_src2->imm);
 }
+
+def_EHelper(slt) {
+  rtl_setrelop(s, RELOP_LT, ddest, dsrc1, dsrc2);
+}
