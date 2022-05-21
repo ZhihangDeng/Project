@@ -8,3 +8,7 @@ def_EHelper(jalr) {
     rtl_addi(s, &s->dnpc, dsrc1, id_src2->simm);
     rtl_andi(s, &s->dnpc, &s->dnpc, 0xfffffffe);
 }
+
+def_EHelper(beq) {
+    rtl_jrelop(s, RELOP_EQ, dsrc1, dsrc2, s->snpc+id_dest->simm);
+}
