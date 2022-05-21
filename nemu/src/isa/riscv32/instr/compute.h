@@ -21,3 +21,7 @@ def_EHelper(sub) {
 def_EHelper(sltiu) {
   rtl_setrelopi(s, RELOP_LTU, ddest, dsrc1, id_src2->imm);
 }
+
+def_EHelper(mul) {
+  rtl_mulu_lo(s, ddest, dsrc1, dsrc2);
+}
