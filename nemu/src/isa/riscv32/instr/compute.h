@@ -49,3 +49,7 @@ def_EHelper(or) {
 def_EHelper(sll) {
   rtl_sll(s, ddest, dsrc1, dsrc2);
 }
+
+def_EHelper(xori) {
+  rtl_xori(s, ddest, dsrc1, id_src2->simm);
+}
