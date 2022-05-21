@@ -81,3 +81,7 @@ def_EHelper(and) {
 def_EHelper(mulh) {
   rtl_muls_hi(s, ddest, dsrc1, dsrc2);
 }
+
+def_EHelper(sra) {
+  rtl_sra(s, ddest, dsrc1, dsrc2);
+}
