@@ -1,13 +1,13 @@
 def_EHelper(lui) {
-  rtl_li(s, ddest, id_src1->imm);
+  rtl_li(s, ddest, id_src1->simm);
 }
 
 def_EHelper(addi) {
-  rtl_addi(s, ddest, dsrc1, id_src2->imm);
+  rtl_addi(s, ddest, dsrc1, id_src2->simm);
 }
 
 def_EHelper(auipc) {
-  rtl_addi(s, ddest, &s->pc, id_src1->imm);
+  rtl_addi(s, ddest, &s->pc, id_src1->simm);
 }
 
 def_EHelper(add) {
@@ -19,7 +19,6 @@ def_EHelper(sub) {
 }
 
 def_EHelper(sltiu) {
-  //rtl_setrelopi(RELOP_LTU, ddest, dsrc1, id_src2->imm);
-  interpret_relop(RELOP_LTU, *dsrc1, id_src2->imm);
+  //rtl_setrelopi(RELOP_LTU, ddest, dsrc1, id_src2->simm);
   Log("%d %d\n", *dsrc1, id_src2->imm);
 }
