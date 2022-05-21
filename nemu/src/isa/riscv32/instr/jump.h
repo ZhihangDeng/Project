@@ -14,5 +14,9 @@ def_EHelper(beq) {
 }
 
 def_EHelper(bne) {
-    rtl_jrelop(s, RELOP_NE, dsrc1, dsrc1, s->pc+id_dest->simm);
+    rtl_jrelop(s, RELOP_NE, dsrc1, dsrc2, s->pc+id_dest->simm);
+}
+
+def_EHelper(bge) {
+    rtl_jrelop(s, RELOP_GEU, dsrc1, dsrc2, s->pc+id_dest->simm);
 }
