@@ -20,3 +20,7 @@ def_EHelper(bne) {
 def_EHelper(bge) {
     rtl_jrelop(s, RELOP_GEU, dsrc1, dsrc2, s->pc+id_dest->simm);
 }
+
+def_EHelper(blt) {
+    rtl_jrelop(s, RELOP_LT, dsrc1, dsrc2, s->pc+id_dest->simm);
+}
