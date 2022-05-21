@@ -9,8 +9,9 @@ const char *regs[] = {
 };
 
 void isa_reg_display() {
+    printf("寄存器\t\t十六进制\t\t十进制\n");
   for(size_t i = 0; i < 32; i++){
-    printf("%s\t\t0x%08x\n",regs[i],gpr(i));
+    printf("%s\t\t0x%08x\t\t%08d\n",regs[i],gpr(i),gpr(i));
   }
 }
 
