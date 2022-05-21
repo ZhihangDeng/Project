@@ -11,5 +11,9 @@ def_EHelper(lh) {
 }
 
 def_EHelper(lhu) {
-  rtl_lm(s, ddest,dsrc1, id_src2->simm, 2);
+  rtl_lm(s, ddest, dsrc1, id_src2->simm, 2);
+}
+
+def_EHelper(lbu) {
+  rtl_lm(s, ddest, dsrc1, id_src2->simm, 1);
 }
