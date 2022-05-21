@@ -45,3 +45,7 @@ def_EHelper(slli) {
 def_EHelper(or) {
   rtl_or(s, ddest, dsrc1, dsrc2);
 }
+
+def_EHelper(sll) {
+  rtl_sll(s, ddest, dsrc1, dsrc2);
+}
