@@ -10,5 +10,7 @@ def_EHelper(jalr) {
 }
 
 def_EHelper(beq) {
+    Log("%d\n", s->snpc);
     rtl_jrelop(s, RELOP_EQ, dsrc1, dsrc2, s->snpc+id_dest->simm);
+    Log("%d\n", s->snpc+id_dest->simm);
 }
