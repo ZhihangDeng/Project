@@ -17,11 +17,13 @@ char *strncpy(char *dst, const char *src, size_t n) {
 }
 
 char *strcat(char *dst, const char *src) {
-  panic("Not implemented");
+  while(1);
+  //panic("Not implemented");
 }
 
 int strcmp(const char *s1, const char *s2) {
-  panic("Not implemented");
+  while(1);
+  //panic("Not implemented");
 }
 
 int strncmp(const char *s1, const char *s2, size_t n) {
