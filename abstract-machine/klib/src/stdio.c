@@ -33,7 +33,7 @@ int sprintf(char *out, const char *fmt, ...) {
         for(sval = va_arg(ap, char*); *sval; sval++)
           *(out++) = *sval;
         break;
-      default: putch(*p);
+      default: *(out++) = *p;
         break;
     }
   }
