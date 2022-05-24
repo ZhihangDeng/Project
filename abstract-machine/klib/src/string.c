@@ -26,23 +26,14 @@ char *strcat(char *dst, const char *src) {
 }
 
 int strcmp(const char *s1, const char *s2) {
-  int i = 0;
-  size_t len_s1 = sizeof(s1)/sizeof(char), len_s2 = sizeof(s2)/sizeof(char);
-  while((i < len_s1) && (i < len_s2)){
-    if(s1[i] > s2[i]){
-      return 1;
-    }else if(s1[i] < s2[i]){
-      return -1;
-    }
-    i++;
-  }
-  if(i == len_s1 && i == len_s2){
+  while(*s1!='\0'&&*(s1++)==*(s2++));
+  int t = *s1 - *s2;
+  if(t == 0)
     return 0;
-  }else if(i == len_s2){
+  else if(t > 0)
     return 1;
-  }else{
+  else
     return -1;
-  }
   //panic("Not implemented");
 }
 
@@ -52,7 +43,7 @@ int strncmp(const char *s1, const char *s2, size_t n) {
 
 void *memset(void *s, int c, size_t n) {
   for(size_t i = 0; i < n; i++){
-    *(char*)(s+i) = c;
+    *(char*)(s+i) = (char)c;
   }
   return s;
 }
