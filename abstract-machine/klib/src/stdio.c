@@ -5,6 +5,25 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
+int _i2a(int num, char buf[32], int radix)
+{
+	static const char s[] = "0123456789abcdef";
+	int n = num, R = radix;
+	char *dst = buf;
+	if (n < 0) { *dst++ = '-'; n = -n; }
+	if (n < 10)
+	{
+		*dst++ = s[n]; *dst = 0;
+	}else
+	{
+		char tmp[32], *p = tmp;
+		while (n) { *p++ = s[n % R]; n /= R; }
+		while (--p != tmp) *dst++ = *p;
+		*dst++ = *tmp; *dst = 0;
+	}
+	return dst-buf;
+}
+
 int printf(const char *fmt, ...) {
   panic("Not implemented");
 }
@@ -20,6 +39,7 @@ int sprintf(char *out, const char *fmt, ...) {
 
   va_start(ap, fmt);
   for(p = (char *)fmt; *p; p++){
+    int n;
     if(*p != '%'){
       *(out++) = *p;
       continue;
@@ -27,7 +47,8 @@ int sprintf(char *out, const char *fmt, ...) {
     switch(*(++p)){
       case 'd':
         ival = va_arg(ap, int);
-        *(out++) = ival;
+        n = _i2a(ival, out, 10);
+        out += n;
         break;
       case 's':
         for(sval = va_arg(ap, char*); *sval; sval++)
