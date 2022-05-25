@@ -36,7 +36,7 @@ int sprintf(char *out, const char *fmt, ...) {
   va_list ap;
   char *p, *sval, *tmp = out;
   int ival;
-
+  
   va_start(ap, fmt);
   for(p = (char *)fmt; *p; p++){
     int n;
@@ -58,7 +58,9 @@ int sprintf(char *out, const char *fmt, ...) {
         break;
     }
   }
+  *out = '\0';
   va_end(ap);
+  
   return out - tmp;
 }
 
