@@ -21,6 +21,7 @@ static inline bool map_inside(IOMap *map, paddr_t addr) {
 
 static inline int find_mapid_by_addr(IOMap *maps, int size, paddr_t addr) {
   int i;
+  //遍历查询
   for (i = 0; i < size; i ++) {
     if (map_inside(maps + i, addr)) {
       difftest_skip_ref();
