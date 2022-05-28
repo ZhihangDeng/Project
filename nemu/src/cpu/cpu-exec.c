@@ -73,6 +73,8 @@ void fetch_decode(Decode *s, vaddr_t pc) {
   s->EHelper = g_exec_table[idx];
 #ifdef CONFIG_ITRACE
   char *p = s->logbuf;
+  //#define FMT_WORD MUXDEF(CONFIG_ISA64, "0x%016lx", "0x%08x")
+  //snprintf()的返回值为"要写入的字符串的长度(不包含结尾的‘\0’)"
   p += snprintf(p, sizeof(s->logbuf), FMT_WORD ":", s->pc);
   int ilen = s->snpc - s->pc;
   int i;

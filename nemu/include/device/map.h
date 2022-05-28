@@ -9,9 +9,9 @@ uint8_t* new_space(int size);
 typedef struct {
   const char *name;
   // we treat ioaddr_t as paddr_t here
-  paddr_t low;
-  paddr_t high;
-  void *space;
+  paddr_t low;              //映射起始地址
+  paddr_t high;             //映射结束地址
+  void *space;              //映射的目标空间
   io_callback_t callback;
 } IOMap;
 
