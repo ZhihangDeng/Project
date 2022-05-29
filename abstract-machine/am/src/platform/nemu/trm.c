@@ -3,7 +3,13 @@
 
 extern char _heap_start;
 int main(const char *args);
-
+/*
+#define RANGE(st, ed) \
+(Area) { 
+  .start = (void *)(st), 
+  .end = (void *)(ed) 
+}
+*/
 Area heap = RANGE(&_heap_start, PMEM_END);
 #ifndef MAINARGS
 #define MAINARGS ""
