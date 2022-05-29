@@ -25,7 +25,17 @@ int _i2a(int num, char buf[32], int radix)
 }
 
 int printf(const char *fmt, ...) {
-  panic("Not implemented");
+  va_list ap;
+  char buf[128];
+  size_t i = 0;
+  va_start(ap, fmt);
+  sprintf(buf, fmt, ap);
+  while(buf[i] != '\0') {
+    putch(buf[i]);
+    i++;
+  }
+  va_end(ap);
+  return i;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
