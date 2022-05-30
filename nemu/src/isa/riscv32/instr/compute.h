@@ -89,3 +89,7 @@ def_EHelper(sra) {
 def_EHelper(srl) {
   rtl_srl(s, ddest, dsrc1, dsrc2);
 }
+
+def_EHelper(divu) {
+  rtl_divu_q(s, ddest, dsrc1, dsrc2);
+}
