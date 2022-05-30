@@ -1,5 +1,5 @@
 def_EHelper(lw) {
-  rtl_lm(s, ddest, dsrc1, id_src2->imm, 4);
+  rtl_lms(s, ddest, dsrc1, id_src2->imm, 4);
 }
 
 def_EHelper(sw) {
@@ -15,6 +15,7 @@ def_EHelper(lhu) {
 }
 
 def_EHelper(lbu) {
+
   rtl_lm(s, ddest, dsrc1, id_src2->simm, 1);
 }
 
@@ -24,4 +25,8 @@ def_EHelper(sh) {
 
 def_EHelper(sb) {
   rtl_sm(s, ddest, dsrc1, id_src2->simm, 1);
+}
+
+def_EHelper(lb) {
+  rtl_lms(s, ddest, dsrc1, id_src2->simm, 1);
 }
