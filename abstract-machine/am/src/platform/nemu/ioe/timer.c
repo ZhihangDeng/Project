@@ -8,7 +8,7 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uint64_t now = 0;
+  uint32_t now = 0;
   uptime->us = now - boot_time;
   printf("%d\n", now);
 }
