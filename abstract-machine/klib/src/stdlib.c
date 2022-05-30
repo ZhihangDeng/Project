@@ -29,16 +29,15 @@ int atoi(const char* nptr) {
   return x;
 }
 
-static void* addr;
-
+static char *addr=NULL;
 void *malloc(size_t size) {
-  char *old = addr;
-  addr += size;
-  assert((uintptr_t)heap.start <= (uintptr_t)addr && (uintptr_t)addr < (uintptr_t)heap.end);
-  for (uint64_t *p = (uint64_t *)old; p != (uint64_t *)addr; p ++) {
-    *p = 0;
-  }
-  return old;
+#if !(defined(__ISA_NATIVE__) && defined(__NATIVE_USE_KLIB__))
+  if(addr==NULL) addr=(char *)heap.start;
+  if(size == 0) return NULL;
+  char *ret=addr;
+  addr+=size;
+  return ret;
+#endif
 }
 
 void free(void *ptr) {
