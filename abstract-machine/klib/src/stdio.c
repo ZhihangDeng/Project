@@ -5,8 +5,7 @@
 
 #if !defined(__ISA_NATIVE__) || defined(__NATIVE_USE_KLIB__)
 
-int _i2a(int num, char buf[32], int radix)
-{
+int _i2a(int num, char buf[32], int radix) {
 	static const char s[] = "0123456789abcdef";
 	int n = num, R = radix;
 	char *dst = buf;
@@ -26,16 +25,34 @@ int _i2a(int num, char buf[32], int radix)
 
 int printf(const char *fmt, ...) {
   va_list ap;
-  char buf[128];
-  size_t i = 0;
+  char *p, *sval, out[128], *tmp = out;
+  int ival;
+  
   va_start(ap, fmt);
-  sprintf(buf, fmt, ap);
-  while(buf[i] != '\0') {
-    putch(buf[i]);
-    i++;
+  for(p = (char *)fmt; *p; p++){
+    int n;
+    if(*p != '%'){
+      *(tmp++) = *p;
+      continue;
+    }
+    switch(*(++p)){
+      case 'd':
+        ival = va_arg(ap, int);
+        n = _i2a(ival, tmp, 10);
+        tmp += n;
+        break;
+      case 's':
+        for(sval = va_arg(ap, char*); *sval; sval++)
+          *(tmp++) = *sval;
+        break;
+      default: *(tmp++) = *p;
+        break;
+    }
   }
-  va_end(ap);
-  return i;
+  *tmp = '\0';
+  va_end(ap); 
+  putstr(out);
+  return tmp - (char *)out;
 }
 
 int vsprintf(char *out, const char *fmt, va_list ap) {
@@ -69,8 +86,7 @@ int sprintf(char *out, const char *fmt, ...) {
     }
   }
   *out = '\0';
-  va_end(ap);
-  
+  va_end(ap); 
   return out - tmp;
 }
 
