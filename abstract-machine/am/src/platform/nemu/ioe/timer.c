@@ -8,7 +8,7 @@ void __am_timer_init() {
 }
 
 void __am_timer_uptime(AM_TIMER_UPTIME_T *uptime) {
-  uint32_t now = inl(RTC_ADDR);
+  uint64_t now = inl(RTC_ADDR);
   uptime->us = now - boot_time;
   printf("%d\n", now);
 }
