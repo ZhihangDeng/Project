@@ -45,6 +45,9 @@ int printf(const char *fmt, ...) {
         for(sval = va_arg(ap, char*); *sval; sval++)
           *(tmp++) = *sval;
         break;
+      case 'c':
+        ival = va_arg(ap, int);
+        *(tmp++) = (char)ival;
       default: *(tmp++) = *p;
         break;
     }
