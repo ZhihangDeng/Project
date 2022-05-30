@@ -48,7 +48,7 @@ int printf(const char *fmt, ...) {
       case 'c':
         ival = va_arg(ap, int);
         *(tmp++) = (char)ival;
-      default: *(tmp++) = *p;
+      default:;
         break;
     }
   }
